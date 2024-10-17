@@ -1,0 +1,23 @@
+name: "Setup Proxy Cache"
+
+inputs:
+  enable-pip:
+    description: "Setup pip to use the proxy cache"
+    required: false
+    default: true
+  enable-conda:
+    description: "Setup conda to use the proxy cache"
+    required: false
+    default: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Setup pip to use the proxy cache
+      if: ${{ inputs.enable-pip }}
+      run: echo "PIP_INDEX_URL=https://pip-cache.local.gha-runners.nvidia.com/simple" >> "${GITHUB_ENV}"
+      shell: bash
+    - name: Setup conda to use the proxy cache
+      if: ${{ inputs.enable-conda }}
+      run: echo "CONDA_CHANNEL_ALIAS=https://conda-cache.local.gha-runners.nvidia.com/" >> "${GITHUB_ENV}"
+      shell: bash
