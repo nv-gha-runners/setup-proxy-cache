@@ -46,12 +46,10 @@ runs:
           SUDO="sudo"
         fi
 
-        # Install ca-certificates if not already present (needed for https)
-        if ! dpkg -l ca-certificates >/dev/null 2>&1; then
-          echo "Installing ca-certificates..."
-          $SUDO apt-get update -qq
-          $SUDO apt-get install -y ca-certificates
-        fi
+        # Install ca-certificates (required for latest lets-encrypt certificates)
+        echo "Installing ca-certificates..."
+        $SUDO apt-get update -qq
+        $SUDO apt-get install -y ca-certificates
 
         # Configure apt to use cache servers
         # Try new format first (Ubuntu 22.04+), fall back to old format
