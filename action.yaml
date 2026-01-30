@@ -46,10 +46,12 @@ runs:
           SUDO="sudo"
         fi
 
-        # Install ca-certificates (required for latest lets-encrypt certificates)
-        echo "Installing ca-certificates..."
-        $SUDO apt-get update
-        $SUDO apt-get install -y ca-certificates
+        # Install ca-certificates in Docker containers
+        if [ -f /.dockerenv ]; then
+          echo "Running in Docker, installing ca-certificates..."
+          $SUDO apt-get update
+          $SUDO apt-get install -y ca-certificates
+        fi
 
         # Configure apt to use cache servers
         # Try new format first (Ubuntu 22.04+), fall back to old format
