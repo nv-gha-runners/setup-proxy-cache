@@ -27,8 +27,5 @@ runs:
       shell: bash
     - name: Setup apt to use the proxy cache
       if: ${{ inputs.enable-apt }}
-      run: |
-        sudo sed -i 's|http://archive.ubuntu.com/ubuntu|https://ubuntu-archive-cache.local.gha-runners.nvidia.com/ubuntu|g' /etc/apt/sources.list.d/ubuntu.sources
-        sudo sed -i 's|http://security.ubuntu.com/ubuntu|https://ubuntu-security-cache.local.gha-runners.nvidia.com/ubuntu|g' /etc/apt/sources.list.d/ubuntu.sources
-        sudo sed -i 's|http://ports.ubuntu.com/ubuntu-ports|https://ubuntu-ports-cache.local.gha-runners.nvidia.com/ubuntu-ports|g' /etc/apt/sources.list.d/ubuntu.sources
+      run: bash ${{ github.action_path }}/setup-apt.sh
       shell: bash
