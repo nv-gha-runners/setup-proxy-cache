@@ -18,7 +18,7 @@ This action supports the following inputs
 | -------------- | ------ | ------- | ----------------------------------------- |
 | `enable-pip`   | `bool` | `true`  | Setup `pip` to use the proxy as a cache   |
 | `enable-conda` | `bool` | `true`  | Setup `conda` to use the proxy as a cache |
-| `enable-apt`   | `bool` | `true`  | Setup `apt` to use the proxy as a cache   |
+| `enable-apt`   | `bool` | `false` | Setup `apt` to use the proxy as a cache   |
 
 ## Example
 
