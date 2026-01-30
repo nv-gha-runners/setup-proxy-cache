@@ -5,8 +5,10 @@ This composite action is intended to be used on NVIDIA Self-Hosted runners.
 It will setup a proxy as a cache for different package managers.
 
 Currently this action supports the following package managers:
-  - `pip`
-  - `conda`
+
+- `pip`
+- `conda`
+- `apt`
 
 ## Inputs
 
@@ -16,6 +18,7 @@ This action supports the following inputs
 | -------------- | ------ | ------- | ----------------------------------------- |
 | `enable-pip`   | `bool` | `true`  | Setup `pip` to use the proxy as a cache   |
 | `enable-conda` | `bool` | `true`  | Setup `conda` to use the proxy as a cache |
+| `enable-apt`   | `bool` | `false` | Setup `apt` to use the proxy as a cache   |
 
 ## Example
 

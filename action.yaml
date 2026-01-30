@@ -9,6 +9,10 @@ inputs:
     description: "Setup conda to use the proxy cache"
     required: false
     default: true
+  enable-apt:
+    description: "Setup apt to use the proxy cache"
+    required: false
+    default: true
 
 runs:
   using: "composite"
@@ -20,4 +24,11 @@ runs:
     - name: Setup conda to use the proxy cache
       if: ${{ inputs.enable-conda }}
       run: echo "CONDA_CHANNEL_ALIAS=https://conda-cache.local.gha-runners.nvidia.com/" >> "${GITHUB_ENV}"
+      shell: bash
+    - name: Setup apt to use the proxy cache
+      if: ${{ inputs.enable-apt }}
+      run: |
+        sudo sed -i 's|http://archive.ubuntu.com/ubuntu|http://ubuntu-archive-cache.local.gha-runners.nvidia.com/ubuntu|g' /etc/apt/sources.list.d/ubuntu.sources
+        sudo sed -i 's|http://security.ubuntu.com/ubuntu|http://ubuntu-security-cache.local.gha-runners.nvidia.com/ubuntu|g' /etc/apt/sources.list.d/ubuntu.sources
+        sudo sed -i 's|http://ports.ubuntu.com/ubuntu-ports|http://ubuntu-ports-cache.local.gha-runners.nvidia.com/ubuntu-ports|g' /etc/apt/sources.list.d/ubuntu.sources
       shell: bash
