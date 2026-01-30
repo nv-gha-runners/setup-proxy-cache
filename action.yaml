@@ -46,9 +46,9 @@ runs:
           SUDO="sudo"
         fi
 
-        # Install ca-certificates only in containers (they often have minimal images)
-        if [ -f /.dockerenv ] || grep -q 'docker\|lxc\|kubepods' /proc/1/cgroup 2>/dev/null; then
-          echo "Running in container, installing ca-certificates..."
+        # Install ca-certificates in Docker containers
+        if [ -f /.dockerenv ]; then
+          echo "Running in Docker, installing ca-certificates..."
           $SUDO apt-get update
           $SUDO apt-get install -y ca-certificates
         fi
