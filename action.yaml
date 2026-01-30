@@ -48,7 +48,7 @@ runs:
 
         # Install ca-certificates (required for latest lets-encrypt certificates)
         echo "Installing ca-certificates..."
-        $SUDO apt-get update -qq
+        $SUDO apt-get update
         $SUDO apt-get install -y ca-certificates
 
         # Configure apt to use cache servers
