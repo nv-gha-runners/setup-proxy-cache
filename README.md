@@ -8,17 +8,19 @@ Currently this action supports the following package managers:
 
 - `pip`
 - `conda`
+- `pypi-anaconda`
 - `apt`
 
 ## Inputs
 
 This action supports the following inputs
 
-| Input          | Type   | Default | Description                               |
-| -------------- | ------ | ------- | ----------------------------------------- |
-| `enable-pip`   | `bool` | `true`  | Setup `pip` to use the proxy as a cache   |
-| `enable-conda` | `bool` | `true`  | Setup `conda` to use the proxy as a cache |
-| `enable-apt`   | `bool` | `false` | Setup `apt` to use the proxy as a cache   |
+| Input                  | Type   | Default | Description                                                                          |
+| ---------------------- | ------ | ------- | ------------------------------------------------------------------------------------ |
+| `enable-pip`           | `bool` | `true`  | Setup `pip` to use the proxy as a cache                                              |
+| `enable-conda`         | `bool` | `true`  | Setup `conda` to use the proxy as a cache                                            |
+| `enable-pypi-anaconda` | `bool` | `true`  | Export the pypi-anaconda proxy cache URL to `NV_GHA_RUNNERS_PYPI_ANACONDA_CACHE_URL` |
+| `enable-apt`           | `bool` | `false` | Setup `apt` to use the proxy as a cache                                              |
 
 ## Example
 
