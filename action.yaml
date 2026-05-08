@@ -22,19 +22,19 @@ runs:
   using: "composite"
   steps:
     - name: Setup pip to use the proxy cache
-      if: ${{ inputs.enable-pip }}
+      if: ${{ inputs.enable-pip == 'true' }}
       run: echo "PIP_INDEX_URL=https://pip-cache.local.gha-runners.nvidia.com/simple" >> "${GITHUB_ENV}"
       shell: bash
     - name: Setup conda to use the proxy cache
-      if: ${{ inputs.enable-conda }}
+      if: ${{ inputs.enable-conda == 'true' }}
       run: echo "CONDA_CHANNEL_ALIAS=https://conda-cache.local.gha-runners.nvidia.com/" >> "${GITHUB_ENV}"
       shell: bash
     - name: Export pypi-anaconda proxy cache URL to NV_GHA_RUNNERS_PYPI_ANACONDA_CACHE_URL
-      if: ${{ inputs.enable-pypi-anaconda }}
+      if: ${{ inputs.enable-pypi-anaconda == 'true' }}
       run: echo "NV_GHA_RUNNERS_PYPI_ANACONDA_CACHE_URL=https://pypi-anaconda-cache.local.gha-runners.nvidia.com/simple" >> "${GITHUB_ENV}"
       shell: bash
     - name: Setup apt to use the proxy cache
-      if: ${{ inputs.enable-apt }}
+      if: ${{ inputs.enable-apt == 'true' }}
       run: |
         # Only run on Ubuntu
         if ! grep -q "^ID=ubuntu" /etc/os-release 2>/dev/null; then
