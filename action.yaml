@@ -17,6 +17,14 @@ inputs:
     description: "Setup apt to use the proxy cache"
     required: false
     default: false
+  enable-maven-central:
+    description: "Setup Maven to use the Maven Central proxy cache"
+    required: false
+    default: false
+  maven-central-cache-url:
+    description: "Base URL of the Maven Central proxy cache; required when enable-maven-central is true"
+    required: false
+    default: ""
 
 runs:
   using: "composite"
@@ -75,4 +83,12 @@ runs:
           echo "No apt sources file found"
           exit 0
         fi
+      shell: bash
+    - name: Setup Maven to use the Maven Central proxy cache
+      if: ${{ inputs.enable-maven-central == 'true' }}
+      env:
+        MAVEN_CENTRAL_CACHE_URL: ${{ inputs.maven-central-cache-url }}
+      run: >-
+        "${{ github.action_path }}/scripts/setup-maven-central.sh"
+        "${MAVEN_CENTRAL_CACHE_URL}"
       shell: bash
