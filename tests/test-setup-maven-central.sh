@@ -24,6 +24,16 @@ if "${script}" "http://insecure.example.test/maven2" >/dev/null 2>&1; then
   exit 1
 fi
 
+if "${script}" "https://:" >/dev/null 2>&1; then
+  echo "expected a malformed cache hostname to be rejected" >&2
+  exit 1
+fi
+
+if "${script}" "https://maven-cache.example.test:65536/maven2" >/dev/null 2>&1; then
+  echo "expected an invalid cache port to be rejected" >&2
+  exit 1
+fi
+
 if "${script}" "${cache_url}" >/dev/null 2>&1; then
   echo "expected an existing Maven settings file to be preserved" >&2
   exit 1

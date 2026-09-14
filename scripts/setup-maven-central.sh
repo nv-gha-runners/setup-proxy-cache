@@ -16,8 +16,24 @@ if [[ -z "${user_home}" ]]; then
 fi
 
 # Restrict the value to a plain HTTPS URL so it is safe to embed in XML and GITHUB_ENV.
-if [[ ! "${cache_url}" =~ ^https://[A-Za-z0-9._:-]+(/[A-Za-z0-9._~/-]*)?$ ]]; then
+if [[ ! "${cache_url}" =~ ^https://([A-Za-z0-9]([A-Za-z0-9.-]*[A-Za-z0-9])?)(:([0-9]{1,5}))?(/[A-Za-z0-9._~/-]*)?$ ]]; then
   echo "maven-central-cache-url must be a plain HTTPS URL" >&2
+  exit 1
+fi
+
+cache_host="${BASH_REMATCH[1]}"
+cache_port="${BASH_REMATCH[4]:-}"
+
+IFS='.' read -r -a host_labels <<<"${cache_host}"
+for host_label in "${host_labels[@]}"; do
+  if [[ ! "${host_label}" =~ ^[A-Za-z0-9]([A-Za-z0-9-]*[A-Za-z0-9])?$ ]]; then
+    echo "maven-central-cache-url must contain a valid hostname" >&2
+    exit 1
+  fi
+done
+
+if [[ -n "${cache_port}" ]] && ((10#${cache_port} < 1 || 10#${cache_port} > 65535)); then
+  echo "maven-central-cache-url must contain a valid port" >&2
   exit 1
 fi
 
